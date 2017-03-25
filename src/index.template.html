@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+
+  <!--this is where webpack loads the chunked resources (code splitting) that need to be preloaded/prefetched -->
+  <% for (var chunk of webpack.chunks) {
+    for (var file of chunk.files) {
+      if (file.match(/\.(js|css)$/)) { %>
+    <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>">
+    <% }}} %>
+
+</head>
+
+<body>
+  <!--vue-ssr-outlet-->
+</body>
+
+</html>
